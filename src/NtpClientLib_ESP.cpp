@@ -29,10 +29,14 @@ or implied, of German Martin
 // 
 // 
 
-#ifdef ARDUINO_ARCH_ESP8266
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
 
 #include "NtpClientLib.h"
+#ifdef ARDUINO_ARCH_ESP8266
 #include <ESP8266WiFi.h>
+#elif ARDUINO_ARCH_ESP32
+#include <WiFi.h>
+#endif
 
 #define DBG_PORT Serial
 

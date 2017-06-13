@@ -7,7 +7,7 @@
 #ifndef PubSubClient_h
 #define PubSubClient_h
 
-#ifdef ESP8266
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
 #include <functional>
 #include <pgmspace.h>
 #endif

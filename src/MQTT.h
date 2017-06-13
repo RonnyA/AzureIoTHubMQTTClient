@@ -20,7 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #pragma once
 
 #include <stdint.h>
-#ifdef ESP8266
+
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
+//#ifdef ESP8266
+
 #include <pgmspace.h>
 #include <functional>
 #endif

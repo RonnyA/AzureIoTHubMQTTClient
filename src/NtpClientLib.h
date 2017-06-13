@@ -40,10 +40,21 @@ or implied, of German Martin
 
 #define DEBUG_NTPCLIENT //Uncomment this to enable debug messages over serial port
 
-#ifdef ESP8266
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
+//#ifdef ESP8266
+
 extern "C" {
+
+#if defined(ARDUINO_ARCH_ESP8266)
 #include "user_interface.h"
 #include "sntp.h"
+#endif
+
+#if defined(ARDUINO_ARCH_ESP32)
+#include <lwip/apps/sntp/sntp.h>
+#endif
+
+
 }
 #include <functional>
 using namespace std;
@@ -70,7 +81,7 @@ using namespace placeholders;
 #define DEFAULT_NTP_TIMEZONE 0 // Select your local time offset. 0 if UTC time has to be used
 
 
-#ifdef ARDUINO_ARCH_ESP8266
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
 #define NETWORK_TYPE NETWORK_ESP8266
 
 #elif defined ARDUINO_ARCH_AVR || defined ARDUINO_ARCH_SAMD || defined ARDUINO_ARCH_ARC32
@@ -104,7 +115,7 @@ typedef enum {
 	invalidAddress // Address not reachable
 } NTPSyncEvent_t;
 
-#ifdef ARDUINO_ARCH_ESP8266
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
 #include <functional>
 typedef std::function<void(NTPSyncEvent_t)> onSyncEvent_t;
 #else
@@ -127,7 +138,8 @@ public:
 	*/
 	bool begin(String ntpServerName = DEFAULT_NTP_SERVER, int timeOffset = DEFAULT_NTP_TIMEZONE, bool daylight = false);
 
-#ifdef ARDUINO_ARCH_ESP8266
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
+//#ifdef ARDUINO_ARCH_ESP8266
 	/**
 	* Sets NTP server name.
 	* @param[in] New NTP server name.
